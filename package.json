@@ -1,0 +1,33 @@
+{
+	"name": "Noteri",
+	"version": "1.0.0",
+	"description": "",
+	"main": "main.js",
+	"scripts": {
+		"build": "webpack",
+		"dev": "webpack-dev-server"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/juraj-kos/Noteri.git"
+	},
+	"keywords": [],
+	"author": "Juraj Kos",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/juraj-kos/Noteri/issues"
+	},
+	"homepage": "https://github.com/juraj-kos/Noteri#readme",
+	"devDependencies": {
+		"@babel/core": "^7.11.1",
+		"@babel/preset-env": "^7.11.0",
+		"babel-loader": "^8.1.0",
+		"css-loader": "^4.2.1",
+		"html-loader": "^1.1.0",
+		"html-webpack-plugin": "^4.3.0",
+		"style-loader": "^1.2.1",
+		"webpack": "^4.44.1",
+		"webpack-cli": "^3.3.12",
+		"webpack-dev-server": "^3.11.0"
+	}
+}

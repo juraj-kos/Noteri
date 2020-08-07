@@ -1,3 +1,5 @@
+import "./style.css";
+
 const container = document.getElementById("container");
 const markupString = "T[b]h[f4]i[#b]s [#f4-b]i[f4]s.";
 
@@ -22,6 +24,7 @@ function parseMarkupString(markupString) {
 		} else if (char === "]") {
 			state.atEnd = index;
 			var atts = getAttributes(markupString, state.atStart, state.atEnd);
+			var spanString = "";
 			[state.attributeStack, spanString] = generateSpanString(
 				state.attributeStack,
 				atts
