@@ -1,6 +1,7 @@
 import "./style.css";
+import parseMarkupString from "./parser";
 
-const container: Element = document.getElementById("container");
+const container: HTMLElement = document.getElementById("container");
 const markupString: string = "T[b]h[f4]i[#b]s [#f4-b]i[f4]s.";
 
 let htmlString: string = parseMarkupString(markupString);
@@ -8,74 +9,113 @@ htmlString =
 	"</br>This is the generated line with non-nested spans.</br>" + htmlString;
 container.innerHTML += htmlString;
 
-function parseMarkupString(markupString: string) {
-	var state: {
-		htmlString: string;
-		attributeStack: string[];
-		atStart: number;
-		atEnd: number;
-	} = {
-		htmlString: "",
-		attributeStack: [],
-		atStart: 0,
-		atEnd: 0,
-	};
+const editorBox: HTMLElement = document.getElementById("editor-box");
+const buttonB: HTMLElement = document.getElementById("bold");
+const buttonI: HTMLElement = document.getElementById("italic");
+const buttonF2: HTMLElement = document.getElementById("f2");
+const buttonF3: HTMLElement = document.getElementById("f3");
+const buttonF4: HTMLElement = document.getElementById("f4");
 
-	for (let index = 0; index < markupString.length; index++) {
-		const char: string = markupString[index];
+editorBox.addEventListener("click", (e: Event) => {
+	changeCursorPosition(e);
+});
 
-		if (char === "[") {
-			state.atStart = index + 1;
-		} else if (char === "]") {
-			state.atEnd = index;
-			let atts = getAttributes(markupString, state.atStart, state.atEnd);
+buttonB.addEventListener("click", (e: Event) => {
+	let selection: Selection = window.getSelection();
+	let anchorNode: Node = selection.anchorNode;
+	let [startIndex, endIndex] = getTextSelection();
+	changeEditorState(e, "bold");
+	editorBox.focus();
+	setTextSelection(anchorNode, startIndex, endIndex);
+});
 
-			let spanStringResults = generateSpanString(
-				state.attributeStack,
-				atts
-			);
-			state.attributeStack = spanStringResults.attributeStack;
-			let spanString: string = spanStringResults.spanString;
+buttonI.addEventListener("click", (e: Event) => {
+	changeEditorState(e, "italic");
+});
 
-			state.htmlString = state.htmlString + spanString;
+enum FontSize {
+	F2,
+	F3,
+	F4,
+}
 
-			resetAttIndexes(state);
-		} else if (state.atStart === 0) {
-			state.htmlString = state.htmlString + char;
-		}
+var editorState: {
+	bold: boolean;
+	italic: boolean;
+	fontSize: FontSize;
+} = {
+	bold: false,
+	italic: false,
+	fontSize: FontSize.F3,
+};
+
+// selection.anchorOffset - startIndex; focusOffset - endIndex
+
+function insertTextStyling(indexes: number[]) {
+	let [startIndex, endIndex] = indexes;
+
+	let attributes: string[] = [];
+	if (editorState.bold) {
+		attributes.push("b");
 	}
 
-	return state.htmlString;
+	let attributesString: string = attributes.join(" ");
+	let spanStringStart: string = `<span class=${attributesString}>`;
+	let spanStringEnd: string = "</span>";
+
+	let iHTML: string = editorBox.innerHTML;
+	let newHTML: string =
+		iHTML.slice(0, startIndex) +
+		spanStringStart +
+		iHTML.slice(startIndex, endIndex) +
+		spanStringEnd +
+		iHTML.slice(endIndex);
+
+	editorBox.innerHTML = newHTML;
 }
 
-function getAttributes(markupString: string, atStart: number, atEnd: number) {
-	let subString = markupString.substring(atStart, atEnd);
-	let atts = subString.split("-");
+function getTextSelection() {
+	let selection: Selection = window.getSelection();
+	let startIndex: number = selection.anchorOffset;
+	let endIndex: number = selection.focusOffset;
 
-	return atts;
+	return [startIndex, endIndex];
 }
 
-function generateSpanString(attributeStack: string[], atts: string[]) {
-	let spanString: string = attributeStack.length !== 0 ? "</span>" : "";
-
-	atts.forEach((att) => {
-		if (att.substring(0, 1) === "#") {
-			let attClean = att.substring(1);
-			attributeStack = attributeStack.filter((attS) => attS !== attClean);
-		} else {
-			attributeStack.push(att);
-		}
-	});
-
-	let attributesString = attributeStack.join(" ");
-	spanString = spanString + `<span class="${attributesString}">`;
-
-	return { attributeStack, spanString };
+function setTextSelection(
+	anchorNode: Node,
+	startIndex: number,
+	endIndex: number
+) {
+	let selection: Selection = window.getSelection();
+	selection.setBaseAndExtent(anchorNode, startIndex, anchorNode, endIndex);
 }
 
-function resetAttIndexes(state: { atStart: number; atEnd: number }) {
-	state.atStart = 0;
-	state.atEnd = 0;
+function changeCursorPosition(e: Event) {
+	let selection: Selection = window.getSelection();
+	console.log(selection);
+}
 
-	return state;
+function changeEditorState(e: Event, identifier: string) {
+	switch (identifier) {
+		case "bold":
+			editorState.bold = !editorState.bold;
+			changeButtonDecoration(buttonB, editorState.bold);
+			let indexes: number[] = getTextSelection();
+			insertTextStyling(indexes);
+			break;
+
+		case "italic":
+			editorState.italic = !editorState.italic;
+			changeButtonDecoration(buttonI, editorState.italic);
+			break;
+	}
+}
+
+function changeButtonDecoration(button: Element, display: boolean) {
+	if (display) {
+		button.classList.add("toggled");
+	} else {
+		button.classList.remove("toggled");
+	}
 }
