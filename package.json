@@ -5,7 +5,8 @@
 	"main": "main.js",
 	"scripts": {
 		"build": "webpack",
-		"dev": "webpack-dev-server"
+		"dev": "webpack-dev-server",
+		"test": "jest"
 	},
 	"repository": {
 		"type": "git",
@@ -21,11 +22,14 @@
 	"devDependencies": {
 		"@babel/core": "^7.11.1",
 		"@babel/preset-env": "^7.11.0",
+		"@types/jest": "^26.0.9",
 		"babel-loader": "^8.1.0",
 		"css-loader": "^4.2.1",
 		"html-loader": "^1.1.0",
 		"html-webpack-plugin": "^4.3.0",
+		"jest": "^26.3.0",
 		"style-loader": "^1.2.1",
+		"ts-jest": "^26.1.4",
 		"ts-loader": "^8.0.2",
 		"typescript": "^3.9.7",
 		"webpack": "^4.44.1",

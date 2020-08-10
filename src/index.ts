@@ -1,13 +1,15 @@
 import "./style.css";
-import parseMarkupString from "./parser";
+import { markupToNodeList, nodeListToMarkup, nodeListToDOM } from "./parser";
+
+const markupString: string = "This [b]i[f4]s [#b]some [i]te[#f4]xt.";
+let nodeList = markupToNodeList(markupString);
+let DOMString = nodeListToDOM(nodeList);
 
 const container: HTMLElement = document.getElementById("container");
-const markupString: string = "T[b]h[f4]i[#b]s [#f4-b]i[f4]s.";
 
-let htmlString: string = parseMarkupString(markupString);
-htmlString =
-	"</br>This is the generated line with non-nested spans.</br>" + htmlString;
-container.innerHTML += htmlString;
+DOMString =
+	"</br>This is the generated line with non-nested spans.</br>" + DOMString;
+container.innerHTML += DOMString;
 
 const editorBox: HTMLElement = document.getElementById("editor-box");
 const buttonB: HTMLElement = document.getElementById("bold");

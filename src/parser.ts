@@ -1,73 +1,85 @@
-function parseMarkupString(markupString: string) {
-	var state: {
-		htmlString: string;
-		attributeStack: string[];
-		atStart: number;
-		atEnd: number;
-	} = {
-		htmlString: "",
-		attributeStack: [],
-		atStart: 0,
-		atEnd: 0,
-	};
+interface ParserNode {
+	text: string;
+	attributes: string[];
+}
 
-	for (let index = 0; index < markupString.length; index++) {
-		const char: string = markupString[index];
+interface ParserNodeList extends Array<ParserNode> {}
 
-		if (char === "[") {
-			state.atStart = index + 1;
+function markupToNodeList(markupString: string) {
+	let charAcc: string = "";
+	let nodeList: ParserNodeList = [];
+	let attList: string[] = [];
+
+	for (let index = 0; index < markupString.length + 1; index++) {
+		const char: string = markupString.slice(index, index + 1);
+
+		if (char === "[" || index === markupString.length) {
+			let newNode: ParserNode = {
+				text: charAcc,
+				attributes: [...attList],
+			};
+			nodeList.push(newNode);
+			charAcc = "";
+			charAcc = charAcc + char;
 		} else if (char === "]") {
-			state.atEnd = index;
-			let atts = getAttributes(markupString, state.atStart, state.atEnd);
-
-			let spanStringResults = generateSpanString(
-				state.attributeStack,
-				atts
-			);
-			state.attributeStack = spanStringResults.attributeStack;
-			let spanString: string = spanStringResults.spanString;
-
-			state.htmlString = state.htmlString + spanString;
-
-			resetAttIndexes(state);
-		} else if (state.atStart === 0) {
-			state.htmlString = state.htmlString + char;
+			let atts = charAcc.slice(1).split("-");
+			atts.forEach((att) => {
+				if (att.slice(0, 1) === "#") {
+					attList = attList.filter((attL) => attL != att.slice(1));
+				} else {
+					attList.push(att);
+				}
+			});
+			charAcc = "";
+		} else {
+			charAcc = charAcc + char;
 		}
 	}
 
-	return state.htmlString;
+	return nodeList;
 }
 
-function getAttributes(markupString: string, atStart: number, atEnd: number) {
-	let subString = markupString.substring(atStart, atEnd);
-	let atts = subString.split("-");
+function nodeListToMarkup(nodeList: ParserNodeList) {
+	let markupString: string = "";
+	let attsActive: string[] = [];
 
-	return atts;
-}
+	nodeList.forEach((node) => {
+		let nodeAtts: string[] = [];
 
-function generateSpanString(attributeStack: string[], atts: string[]) {
-	let spanString: string = attributeStack.length !== 0 ? "</span>" : "";
+		attsActive = attsActive.filter((attA) => {
+			var keepAtt: boolean = true;
+			if (!node.attributes.includes(attA)) {
+				nodeAtts.push(`#${attA}`);
+				keepAtt = false;
+			}
+			return keepAtt;
+		});
 
-	atts.forEach((att) => {
-		if (att.substring(0, 1) === "#") {
-			let attClean = att.substring(1);
-			attributeStack = attributeStack.filter((attS) => attS !== attClean);
-		} else {
-			attributeStack.push(att);
-		}
+		node.attributes
+			.filter((attA) => !attsActive.includes(attA))
+			.forEach((attA) => {
+				attsActive.push(attA);
+				nodeAtts.push(attA);
+			});
+
+		let attString: string =
+			nodeAtts.length !== 0 ? `[${nodeAtts.join("-")}]` : "";
+		markupString = markupString + attString + node.text;
 	});
 
-	let attributesString = attributeStack.join(" ");
-	spanString = spanString + `<span class="${attributesString}">`;
-
-	return { attributeStack, spanString };
+	return markupString;
 }
 
-function resetAttIndexes(state: { atStart: number; atEnd: number }) {
-	state.atStart = 0;
-	state.atEnd = 0;
+function nodeListToDOM(nodeList: ParserNodeList) {
+	let DOMString: string = "";
 
-	return state;
+	nodeList.forEach((node) => {
+		let classString: string = node.attributes.join(" ");
+		let spanString: string = `<span class="${classString}">${node.text}</span>`;
+		DOMString = DOMString + spanString;
+	});
+
+	return DOMString;
 }
 
-export default parseMarkupString;
+export { markupToNodeList, nodeListToMarkup, nodeListToDOM, ParserNodeList };
