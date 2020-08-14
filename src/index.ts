@@ -1,6 +1,25 @@
 import "@fortawesome/fontawesome-free/js/fontawesome";
 import "@fortawesome/fontawesome-free/js/solid";
 import "./style.css";
+
+var icon = require("./Media/Icons/icon-mtb-create.svg");
+console.log(typeof icon);
+document.getElementById("button-create-note").innerHTML = icon;
+
+var mainToolbar: HTMLElement = document.getElementById("main-toolbar");
+for (let index = 0; index < mainToolbar.children.length; index++) {
+	const buttonElement = mainToolbar.children[index];
+	var buttonIconID = buttonElement.getAttribute("icon");
+	if (buttonIconID !== null) {
+		var icon = require(`./Media/Icons/${buttonIconID}.svg`);
+		icon = icon.slice(0, 4) + ' class="mtb-icon"' + icon.slice(4);
+		buttonElement.innerHTML = icon;
+
+		// remove fill="none"
+		// add fill="currentColor" to path
+	}
+}
+
 // import { markupToNodeList, nodeListToMarkup, nodeListToDOM } from "./parser";
 
 // const markupString: string = "This [b]i[f4]s [#b]some [i]te[#f4]xt.";
