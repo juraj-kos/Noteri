@@ -6,7 +6,7 @@
 		<title>Document</title>
 	</head>
 	<body>
-		<div id="container">
+		<!---<div id="container">
 			This is the line with nested spans.
 			<br />
 			T<span class="b">h<span class="f4">i</span></span
@@ -36,6 +36,41 @@
 			>
 				This is some text that I <span class="b">would</span> want to
 				edit later.
+			</div>
+		</div>
+
+		<div id="entry">Entry</div> -->
+
+		<!-- <script id="entry-template" type="text/x-handlebars-template">
+			<div class="entry">
+				<h1>
+					{{title}}
+				</h1>
+				<div class="body">
+					{{body}}
+				</div>
+			</div>
+		</script> -->
+		<div class="main-toolbar">
+			<div class="main-toolbar-button" id="button-user"></div>
+			<div class="main-toolbar-button" id="button-create-note">
+				<!-- <img src="./Media/Icons/icon-mtb-create.svg"></img> -->
+				<!-- <img src="./Media/Icons/plus-solid.svg" /> -->
+				<!-- <svg xlink:href="./Media/Icons/plus-solid.svg"> -->
+				<!-- <path xlink:href="./Media/Icons/plus-solid.svg"></path> -->
+				<!-- </svg> -->
+			</div>
+			<div class="main-toolbar-button" id="button-filter">
+				<i class="mtb-icon fas fa-filter" id="mtb-filter"></i>
+			</div>
+			<div class="main-toolbar-button" id="button-sort">
+				<i class="mtb-icon fas fa-sort" id="mtb-sort"></i>
+			</div>
+			<div class="main-toolbar-button" id="button-select">
+				<i class="mtb-icon fas fa-adjust" id="mtb-select"></i>
+			</div>
+			<div class="main-toolbar-button" id="button-settings">
+				<i class="mtb-icon fas fa-cog" id="mtb-settings"></i>
 			</div>
 		</div>
 	</body>
