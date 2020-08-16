@@ -99,28 +99,44 @@ body {
 	color: #e0afa0;
 }
 
-/* 
-#mtb-create {
-	width: 48px;
-	height: 45px;
+.editor-toolbar {
+	margin: 26px auto 0 auto;
+	height: 36px;
+	width: 500px;
+	display: flex;
+	flex-direction: row;
 }
 
-#mtb-filter {
-	width: 41px;
-	height: 44px;
+.editor-toolbar-button {
+	width: 36px;
+	border-radius: 5px;
+	background-color: #f4f3ee;
+	margin-left: 10px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	box-shadow: 0px 1px 1px rgba(138, 129, 124, 0.72);
 }
 
-#mtb-sort {
-	width: 48px;
-	height: 51px;
+.editor-toolbar-button:first-of-type {
+	margin-left: 0;
 }
 
-#mtb-select {
-	width: 48px;
-	height: 48px;
+.etb-icon {
+	color: #4281a4;
 }
 
-#mtb-settings {
-	width: 48px;
-	height: 48px;
-} */
+.canvas {
+	margin: 27px 60px auto 60px;
+	height: auto;
+	display: flex;
+	flex-direction: row;
+}
+
+.note {
+	width: 240px;
+	height: 360px;
+	background-color: #9cafb7;
+}

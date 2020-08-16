@@ -1,24 +1,14 @@
-import "@fortawesome/fontawesome-free/js/fontawesome";
-import "@fortawesome/fontawesome-free/js/solid";
+import { MainToolbar, EditorToolbar } from "./components";
+
 import "./style.css";
 
-var icon = require("./Media/Icons/icon-mtb-create.svg");
-console.log(typeof icon);
-document.getElementById("button-create-note").innerHTML = icon;
+var mainToolbarRoot: HTMLElement = document.getElementById("main-toolbar-root");
+mainToolbarRoot.replaceWith(MainToolbar());
 
-var mainToolbar: HTMLElement = document.getElementById("main-toolbar");
-for (let index = 0; index < mainToolbar.children.length; index++) {
-	const buttonElement = mainToolbar.children[index];
-	var buttonIconID = buttonElement.getAttribute("icon");
-	if (buttonIconID !== null) {
-		var icon = require(`./Media/Icons/${buttonIconID}.svg`);
-		icon = icon.slice(0, 4) + ' class="mtb-icon"' + icon.slice(4);
-		buttonElement.innerHTML = icon;
-
-		// remove fill="none"
-		// add fill="currentColor" to path
-	}
-}
+var editorToolbarRoot: HTMLElement = document.getElementById(
+	"editor-toolbar-root"
+);
+editorToolbarRoot.replaceWith(EditorToolbar());
 
 // import { markupToNodeList, nodeListToMarkup, nodeListToDOM } from "./parser";
 
