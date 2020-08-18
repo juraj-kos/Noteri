@@ -1,23 +1,35 @@
-const MainToolbar = () => {
-	const buttonData: string[] = [
-		"user",
-		"create",
-		"filter",
-		"sort",
-		"select",
-		"settings",
-	];
+const Toolbar = (
+	buttonData: string[],
+	containerName: string,
+	prefix: string
+) => {
+	function createElement() {
+		const rootContainer: HTMLElement = document.createElement("div");
+		rootContainer.setAttribute("class", containerName);
+		rootContainer.setAttribute("id", containerName);
 
-	const rootContainer: HTMLElement = document.createElement("div");
-	rootContainer.setAttribute("class", "main-toolbar");
-	rootContainer.setAttribute("id", "main-toolbar");
+		buttonData.forEach((buttonName) => {
+			let buttonDiv: HTMLElement = createButton(
+				`${containerName}-button`,
+				prefix,
+				buttonName
+			);
+			rootContainer.appendChild(buttonDiv);
+		});
 
-	buttonData.forEach((button) => {
+		return rootContainer;
+	}
+
+	function createButton(
+		className: string,
+		prefix: string,
+		buttonName: string
+	) {
 		let buttonDiv: HTMLElement = document.createElement("div");
-		buttonDiv.setAttribute("class", "main-toolbar-button");
-		buttonDiv.setAttribute("id", `mtb-${button}`);
+		buttonDiv.setAttribute("class", className);
+		buttonDiv.setAttribute("id", `${prefix}-${buttonName}`);
 
-		let iconString: string = require(`./Media/Icons/icon-mtb-${button}.svg`);
+		let iconString: string = require(`./Media/Icons/icon-${prefix}-${buttonName}.svg`);
 
 		var viewBoxIndex: number = iconString.indexOf("viewBox");
 		var viewBoxString: string = iconString.slice(
@@ -32,18 +44,26 @@ const MainToolbar = () => {
 			iconString.slice(4);
 
 		iconString =
-			iconString.slice(0, 4) + ' class="mtb-icon"' + iconString.slice(4);
+			iconString.slice(0, 4) +
+			` class="${prefix}-icon"` +
+			iconString.slice(4);
 
 		buttonDiv.innerHTML = iconString;
 
-		rootContainer.appendChild(buttonDiv);
-	});
+		return buttonDiv;
+	}
 
-	return rootContainer;
+	return createElement();
 };
 
-const EditorToolbar = () => {
-	const buttonData: string[] = [
+const MainToolbar: HTMLElement = Toolbar(
+	["user", "create", "filter", "sort", "select", "settings"],
+	"main-toolbar",
+	"mtb"
+);
+
+const EditorToolbar: HTMLElement = Toolbar(
+	[
 		"text-size",
 		"bold",
 		"italic",
@@ -55,40 +75,24 @@ const EditorToolbar = () => {
 		"align-left",
 		"alert",
 		"checkbox",
-	];
+	],
+	"editor-toolbar",
+	"etb"
+);
 
-	const rootContainer: HTMLElement = document.createElement("div");
-	rootContainer.setAttribute("class", "editor-toolbar");
-	rootContainer.setAttribute("id", "editor-toolbar");
+const NoteToolbar: HTMLElement = Toolbar(
+	[
+		"tag",
+		"color",
+		"scale",
+		"duplicate",
+		"archive",
+		"trash",
+		"maximize",
+		"pin",
+	],
+	"note-toolbar",
+	"ntb"
+);
 
-	buttonData.forEach((button) => {
-		let buttonDiv: HTMLElement = document.createElement("div");
-		buttonDiv.setAttribute("class", "editor-toolbar-button");
-		buttonDiv.setAttribute("id", `etb-${button}`);
-
-		let iconString: string = require(`./Media/Icons/icon-etb-${button}.svg`);
-
-		var viewBoxIndex: number = iconString.indexOf("viewBox");
-		var viewBoxString: string = iconString.slice(
-			viewBoxIndex + 13,
-			viewBoxIndex + 18
-		);
-		var dimensions: string[] = viewBoxString.split(" ");
-
-		iconString =
-			iconString.slice(0, 4) +
-			` width="${dimensions[0]}" height="${dimensions[1]}"` +
-			iconString.slice(4);
-
-		iconString =
-			iconString.slice(0, 4) + ' class="etb-icon"' + iconString.slice(4);
-
-		buttonDiv.innerHTML = iconString;
-
-		rootContainer.appendChild(buttonDiv);
-	});
-
-	return rootContainer;
-};
-
-export { MainToolbar, EditorToolbar };
+export { MainToolbar, EditorToolbar, NoteToolbar };

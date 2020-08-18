@@ -1,14 +1,10 @@
-import { MainToolbar, EditorToolbar } from "./components";
+import { MainToolbar, EditorToolbar, NoteToolbar } from "./components";
 
 import "./style.css";
 
-var mainToolbarRoot: HTMLElement = document.getElementById("main-toolbar-root");
-mainToolbarRoot.replaceWith(MainToolbar());
-
-var editorToolbarRoot: HTMLElement = document.getElementById(
-	"editor-toolbar-root"
-);
-editorToolbarRoot.replaceWith(EditorToolbar());
+document.getElementById("main-toolbar-root").replaceWith(MainToolbar);
+document.getElementById("editor-toolbar-root").replaceWith(EditorToolbar);
+document.getElementById("note-toolbar-root").replaceWith(NoteToolbar);
 
 // import { markupToNodeList, nodeListToMarkup, nodeListToDOM } from "./parser";
 

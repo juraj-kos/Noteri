@@ -31,15 +31,6 @@ module.exports = {
 				use: ["style-loader", "css-loader"],
 			},
 			{
-				test: /\.hbs$/,
-				use: [
-					{
-						loader: "handlebars-loader",
-						//   options: {helperDirs: path.resolve(__dirname, "./js/helpers")}
-					},
-				],
-			},
-			{
 				test: /\.svg$/,
 				use: [
 					{

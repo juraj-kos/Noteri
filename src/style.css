@@ -138,5 +138,46 @@ body {
 .note {
 	width: 240px;
 	height: 360px;
-	background-color: #9cafb7;
+	background-color: #fffdf9;
+	border-radius: 5px;
+	margin-left: 20px;
+
+	box-shadow: 2px 2px 2px 0px #8a817c49;
+}
+
+.note-content {
+	margin: 8px 8px 0px 8px;
+	min-height: 315px;
+
+	font-family: "Roboto", sans-serif;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 12px;
+	line-height: 14px;
+}
+
+.note-toolbar {
+	margin: 9px auto 0 auto;
+	height: 18px;
+	width: 228px;
+	display: flex;
+	flex-direction: row;
+}
+
+.note-toolbar-button {
+	width: 18px;
+	background: transparent;
+	margin-left: 12px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.note-toolbar-button:first-of-type {
+	margin-left: 0;
+}
+
+.mtb-icon {
+	color: #4281a4;
 }
