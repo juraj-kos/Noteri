@@ -150,6 +150,7 @@ body {
 }
 
 .note {
+	position: relative;
 	width: 240px;
 	height: 360px;
 	background-color: #fffdf9;
@@ -192,6 +193,18 @@ body {
 	margin-left: 0;
 }
 
-.mtb-icon {
+.ntb-icon {
 	color: #4281a4;
+}
+
+.expand-tags {
+	margin: 1px auto 0 auto;
+	display: flex;
+	justify-content: center;
+}
+
+.resize-note {
+	position: absolute;
+	right: 3px;
+	bottom: 0;
 }

@@ -198,6 +198,21 @@ const Note = () => {
 	rootContainer.appendChild(editorContainer);
 	rootContainer.appendChild(NoteToolbar.cloneNode(true));
 
+	let otherButtons: Toolbar = new Toolbar();
+	let expandTags: HTMLElement = otherButtons.createButtonElement(
+		"expand-tags",
+		"ntb",
+		"expand-tags"
+	);
+	let resizeNote: HTMLElement = otherButtons.createButtonElement(
+		"resize-note",
+		"ntb",
+		"resize"
+	);
+
+	rootContainer.appendChild(expandTags);
+	rootContainer.appendChild(resizeNote);
+
 	return rootContainer;
 };
 
