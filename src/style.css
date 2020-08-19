@@ -102,7 +102,7 @@ body {
 .editor-toolbar {
 	margin: 26px auto 0 auto;
 	height: 36px;
-	width: 500px;
+	width: 639px;
 	display: flex;
 	flex-direction: row;
 }
@@ -115,7 +115,8 @@ body {
 
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	align-items: flex-end;
+	padding-bottom: 5px;
 
 	box-shadow: 0px 1px 1px rgba(138, 129, 124, 0.72);
 }
@@ -124,8 +125,21 @@ body {
 	margin-left: 0;
 }
 
+.button-text-size {
+	width: 118px;
+}
+
+.button-text-align {
+	width: 97px;
+}
+
 .etb-icon {
 	color: #4281a4;
+	margin-left: 5px;
+}
+
+.etb-icon:first-of-type {
+	margin-left: 0;
 }
 
 .canvas {
