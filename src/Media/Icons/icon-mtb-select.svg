@@ -1,6 +1,6 @@
 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter-icon-mtb-select)">
-<path d="M0 24C0 37.2548 10.7451 48 24 48C37.2549 48 48 37.2548 48 24C48 10.7452 37.2548 0 24 0C10.7452 0 0 10.7451 0 24ZM24 41.8064V6.19355C33.8424 6.19355 41.8064 14.1591 41.8064 24C41.8064 33.8424 33.8409 41.8064 24 41.8064Z" fill="#E0AFA0"/>
+<path d="M0 24C0 37.2548 10.7451 48 24 48C37.2549 48 48 37.2548 48 24C48 10.7452 37.2548 0 24 0C10.7452 0 0 10.7451 0 24ZM24 41.8064V6.19355C33.8424 6.19355 41.8064 14.1591 41.8064 24C41.8064 33.8424 33.8409 41.8064 24 41.8064Z"fill="currentColor"/>
 </g>
 <defs>
 <filter id="filter-icon-mtb-select" x="0" y="0" width="48" height="49" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">

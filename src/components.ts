@@ -1,3 +1,5 @@
+import { buttonClick } from "./editor";
+
 class Toolbar {
 	buildElement(buttonData: string[], containerName: string, prefix: string) {
 		const rootContainer: HTMLElement = this.createRootElement(
@@ -117,6 +119,11 @@ class EditorToolbarClass extends Toolbar {
 			buttonDiv.setAttribute("class", className);
 			this.appendSVG(buttonDiv, prefix, buttonName);
 		}
+
+		console.log("Adding event listener to: " + buttonName);
+		buttonDiv.addEventListener("click", (e: Event) => {
+			buttonClick(buttonName);
+		});
 
 		return buttonDiv;
 	}

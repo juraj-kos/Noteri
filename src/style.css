@@ -91,6 +91,14 @@ body {
 	box-shadow: 0px 4px 4px rgba(138, 129, 124, 0.25);
 }
 
+.main-toolbar-button:hover {
+	filter: brightness(105%);
+}
+
+.main-toolbar-button:active {
+	filter: brightness(90%);
+}
+
 .main-toolbar-button:first-of-type {
 	margin-left: 0;
 }
@@ -136,6 +144,14 @@ body {
 .etb-icon {
 	color: #4281a4;
 	margin-left: 5px;
+}
+
+.etb-icon:hover {
+	color: #6cabce;
+}
+
+.etb-icon:active {
+	color: #2e6481;
 }
 
 .etb-icon:first-of-type {

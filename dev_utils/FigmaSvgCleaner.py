@@ -21,15 +21,16 @@ for iconFile in os.listdir(iconsDir):
 						suffix = ")"
 					newLine = line[:quoteStart] + prefix + "filter-" + iconFile.split('.')[0] + suffix + line[quoteEnd:]
 					fileAccumulator = fileAccumulator + newLine
+				elif line[:5] == "<path":
+					if "fill" in line:
+						newLine = line[:line.index("fill") - 1] + 'fill="currentColor"/>\n'
+					else:
+						newLine = line[:line.index("/>")] + ' fill="currentColor"/>\n'
+					fileAccumulator = fileAccumulator + newLine
 				else:
 					fileAccumulator = fileAccumulator + line
 				# if line[:4] == "<svg" or line[:5] == "</svg":
 				# 	fileAccumulator = fileAccumulator + line
-				# elif line[:5] == "<path":
-				# 	if "fill" in line:
-				# 		newLine = line[:line.index("fill") - 1] + 'fill="currentColor"/>\n'
-				# 	else:
-				# 		newLine = line[:line.index("/>")] + ' fill="currentColor"/>\n'
 				# 	fileAccumulator = fileAccumulator + newLine
 			# print(fileAccumulator)
 
