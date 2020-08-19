@@ -1,10 +1,17 @@
-import { MainToolbar, EditorToolbar, NoteToolbar } from "./components";
+import { MainToolbar, EditorToolbar, Note } from "./components";
 
 import "./style.css";
 
 document.getElementById("main-toolbar-root").replaceWith(MainToolbar);
 document.getElementById("editor-toolbar-root").replaceWith(EditorToolbar);
-document.getElementById("note-toolbar-root").replaceWith(NoteToolbar);
+//document.getElementById("note-toolbar-root").replaceWith(NoteToolbar);
+
+const canvas = document.getElementById("canvas");
+canvas.appendChild(Note());
+canvas.appendChild(Note());
+canvas.appendChild(Note());
+canvas.appendChild(Note());
+canvas.appendChild(Note());
 
 // import { markupToNodeList, nodeListToMarkup, nodeListToDOM } from "./parser";
 

@@ -179,4 +179,26 @@ const NoteToolbar: HTMLElement = NoteToolbarInstance.buildElement(
 	"ntb"
 );
 
-export { MainToolbar, EditorToolbar, NoteToolbar };
+const Note = () => {
+	const rootContainer: HTMLElement = document.createElement("div");
+	rootContainer.setAttribute("class", "note");
+
+	const editorContainer: HTMLElement = document.createElement("div");
+	editorContainer.setAttribute("class", "note-content");
+	editorContainer.setAttribute("role", "textbox");
+	editorContainer.setAttribute("contenteditable", "true");
+
+	let spanString: string = `<span
+	>Let’s add just a tiny bit of text to test out the
+	formatting on different sizes of notes. This is one
+	line.<br />This is a new line.<br /><br />This is a line
+	after a newline.</span>`;
+
+	editorContainer.innerHTML = spanString;
+	rootContainer.appendChild(editorContainer);
+	rootContainer.appendChild(NoteToolbar.cloneNode(true));
+
+	return rootContainer;
+};
+
+export { MainToolbar, EditorToolbar, Note };
