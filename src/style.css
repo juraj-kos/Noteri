@@ -70,6 +70,30 @@ body {
 	);
 }
 
+.button-label {
+	visibility: hidden;
+	position: absolute;
+	background-color: #8f8a88;
+	color: white;
+	left: 50%;
+	top: 100%;
+	transform: translate(-50%, 0);
+	white-space: nowrap;
+	font-size: 14px;
+	padding: 0 2px 0 2px;
+	margin-top: 3px;
+	border-radius: 3px;
+
+	transition-delay: 0;
+}
+
+.main-toolbar-button:hover .button-label,
+.editor-toolbar-button:hover .button-label,
+.note-toolbar-button:hover .button-label {
+	visibility: visible;
+	transition-delay: 300ms;
+}
+
 .main-toolbar {
 	margin: 20px auto 0 auto;
 	height: 66px;
@@ -79,6 +103,7 @@ body {
 }
 
 .main-toolbar-button {
+	position: relative;
 	width: 66px;
 	border-radius: 50%;
 	background-color: #f4f3ee;
@@ -116,6 +141,7 @@ body {
 }
 
 .editor-toolbar-button {
+	position: relative;
 	width: 36px;
 	border-radius: 5px;
 	background-color: #f4f3ee;
@@ -196,6 +222,7 @@ body {
 }
 
 .note-toolbar-button {
+	position: relative;
 	width: 18px;
 	background: transparent;
 	margin-left: 12px;

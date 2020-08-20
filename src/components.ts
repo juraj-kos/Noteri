@@ -1,7 +1,11 @@
 import { buttonClick } from "./editor";
 
 class Toolbar {
-	buildElement(buttonData: string[], containerName: string, prefix: string) {
+	buildElement(
+		buttonData: string[][],
+		containerName: string,
+		prefix: string
+	) {
 		const rootContainer: HTMLElement = this.createRootElement(
 			containerName
 		);
@@ -20,16 +24,24 @@ class Toolbar {
 
 	appendButtons(
 		parentElement: HTMLElement,
-		buttonData: string[],
+		buttonData: string[][],
 		containerName: string,
 		prefix: string
 	) {
-		buttonData.forEach((buttonName) => {
+		buttonData.forEach((buttonData) => {
+			let [buttonName, buttonLabel] = buttonData;
+
 			let buttonDiv: HTMLElement = this.createButtonElement(
 				`${containerName}-button`,
 				prefix,
 				buttonName
 			);
+
+			let buttonLabelDiv: HTMLElement = document.createElement("div");
+			buttonLabelDiv.setAttribute("class", "button-label");
+			buttonLabelDiv.textContent = buttonLabel;
+			buttonDiv.appendChild(buttonLabelDiv);
+
 			parentElement.appendChild(buttonDiv);
 		});
 	}
@@ -85,7 +97,14 @@ class Toolbar {
 
 const MainToolbarInstance: Toolbar = new Toolbar();
 const MainToolbar: HTMLElement = MainToolbarInstance.buildElement(
-	["user", "create", "filter", "sort", "select", "settings"],
+	[
+		["user", "User"],
+		["create", "Create Note"],
+		["filter", "Filter Notes"],
+		["sort", "Sort Notes"],
+		["select", "Select Multiple Notes"],
+		["settings", "Settings"],
+	],
 	"main-toolbar",
 	"mtb"
 );
@@ -154,17 +173,17 @@ class EditorToolbarClass extends Toolbar {
 const EditorToolbarInstance: Toolbar = new EditorToolbarClass();
 const EditorToolbar: HTMLElement = EditorToolbarInstance.buildElement(
 	[
-		"text-size",
-		"bold",
-		"italic",
-		"color",
-		"bullet-list",
-		"number-list",
-		"underline",
-		"strikethrough",
-		"text-align",
-		"alert",
-		"checkbox",
+		["text-size", "Text Size"],
+		["bold", "Bold"],
+		["italic", "Italic"],
+		["color", "Color"],
+		["bullet-list", "Insert Bullet List"],
+		["number-list", "Insert Number List"],
+		["underline", "Underline"],
+		["strikethrough", "Strikethrough"],
+		["text-align", "Text Align"],
+		["alert", "Insert Alert"],
+		["checkbox", "Insert Checkbox"],
 	],
 	"editor-toolbar",
 	"etb"
@@ -173,14 +192,14 @@ const EditorToolbar: HTMLElement = EditorToolbarInstance.buildElement(
 const NoteToolbarInstance: Toolbar = new Toolbar();
 const NoteToolbar: HTMLElement = NoteToolbarInstance.buildElement(
 	[
-		"tag",
-		"color",
-		"scale",
-		"duplicate",
-		"archive",
-		"trash",
-		"maximize",
-		"pin",
+		["tag", "Tag"],
+		["color", "Color"],
+		["scale", "Scale"],
+		["duplicate", "Duplicate"],
+		["archive", "Archive"],
+		["trash", "Trash"],
+		["maximize", "Maximize"],
+		["pin", "Pin"],
 	],
 	"note-toolbar",
 	"ntb"
