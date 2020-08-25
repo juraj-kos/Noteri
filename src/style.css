@@ -185,11 +185,27 @@ body {
 	margin-left: 0;
 }
 
-.canvas {
+.grid {
 	margin: 27px 60px auto 60px;
-	height: auto;
-	display: flex;
-	flex-direction: row;
+	position: relative;
+}
+
+.item {
+	display: block;
+	position: absolute;
+	z-index: 1;
+}
+
+.item.muuri-item-dragging {
+	z-index: 3;
+}
+
+.item.muuri-item-releasing {
+	z-index: 2;
+}
+
+.item.muuri-item-hidden {
+	z-index: 0;
 }
 
 .note {

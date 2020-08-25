@@ -206,8 +206,11 @@ const NoteToolbar: HTMLElement = NoteToolbarInstance.buildElement(
 );
 
 const Note = (autoHeight: boolean = false) => {
-	const rootContainer: HTMLElement = document.createElement("div");
-	rootContainer.setAttribute("class", "note");
+	const itemContainer: HTMLElement = document.createElement("div");
+	itemContainer.setAttribute("class", "item");
+
+	const noteContainer: HTMLElement = document.createElement("div");
+	noteContainer.setAttribute("class", "note");
 
 	const editorContainer: HTMLElement = document.createElement("div");
 	editorContainer.setAttribute(
@@ -231,12 +234,12 @@ const Note = (autoHeight: boolean = false) => {
 	after a newline.</span>`;
 
 	editorContainer.innerHTML = spanString;
-	rootContainer.appendChild(editorContainer);
+	noteContainer.appendChild(editorContainer);
 	let NoteToolbarBase: Node = NoteToolbar.cloneNode(true);
 	let dummyBlock: HTMLElement = document.createElement("div");
 	dummyBlock.setAttribute("class", "note-toolbar-dummy");
 	NoteToolbarBase.appendChild(dummyBlock);
-	rootContainer.appendChild(NoteToolbarBase);
+	noteContainer.appendChild(NoteToolbarBase);
 
 	let otherButtons: Toolbar = new Toolbar();
 	let resizerBottom: HTMLElement = otherButtons.createButtonElement(
@@ -250,10 +253,12 @@ const Note = (autoHeight: boolean = false) => {
 		"resizer-right"
 	);
 
-	rootContainer.appendChild(resizerBottom);
-	rootContainer.appendChild(resizerRight);
+	noteContainer.appendChild(resizerBottom);
+	noteContainer.appendChild(resizerRight);
 
-	return rootContainer;
+	itemContainer.appendChild(noteContainer);
+
+	return itemContainer;
 };
 
 export { MainToolbar, EditorToolbar, Note };

@@ -1,6 +1,6 @@
 import { MainToolbar, EditorToolbar, Note } from "./components";
-
 import "./style.css";
+import Muuri from "muuri";
 
 document.getElementById("main-toolbar-root").replaceWith(MainToolbar);
 document.getElementById("editor-toolbar-root").replaceWith(EditorToolbar);
@@ -12,6 +12,8 @@ canvas.appendChild(Note());
 canvas.appendChild(Note());
 canvas.appendChild(Note());
 canvas.appendChild(Note());
+
+var grid = new Muuri(".grid", { dragEnabled: true });
 
 // import { markupToNodeList, nodeListToMarkup, nodeListToDOM } from "./parser";
 
