@@ -7,7 +7,7 @@ document.getElementById("editor-toolbar-root").replaceWith(EditorToolbar);
 //document.getElementById("note-toolbar-root").replaceWith(NoteToolbar);
 
 const canvas = document.getElementById("canvas");
-canvas.appendChild(Note());
+canvas.appendChild(Note(true));
 canvas.appendChild(Note());
 canvas.appendChild(Note());
 canvas.appendChild(Note());

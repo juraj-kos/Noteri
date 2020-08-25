@@ -194,7 +194,7 @@ const NoteToolbar: HTMLElement = NoteToolbarInstance.buildElement(
 	[
 		["tag", "Tag"],
 		["color", "Color"],
-		["scale", "Scale"],
+		["scale", "Auto-Height"],
 		["duplicate", "Duplicate"],
 		["archive", "Archive"],
 		["trash", "Trash"],
@@ -205,12 +205,15 @@ const NoteToolbar: HTMLElement = NoteToolbarInstance.buildElement(
 	"ntb"
 );
 
-const Note = () => {
+const Note = (autoHeight: boolean = false) => {
 	const rootContainer: HTMLElement = document.createElement("div");
 	rootContainer.setAttribute("class", "note");
 
 	const editorContainer: HTMLElement = document.createElement("div");
-	editorContainer.setAttribute("class", "note-content");
+	editorContainer.setAttribute(
+		"class",
+		`note-content ${autoHeight ? "auto-height" : ""}`
+	);
 	editorContainer.setAttribute("role", "textbox");
 	editorContainer.setAttribute("contenteditable", "true");
 
@@ -218,26 +221,37 @@ const Note = () => {
 	>Let’s add just a tiny bit of text to test out the
 	formatting on different sizes of notes. This is one
 	line.<br />This is a new line.<br /><br />This is a line
+	after a newline.<br /><br />This is a line
+	after a newline.<br /><br />This is a line
+	after a newline.<br /><br />This is a line
+	after a newline.<br /><br />This is a line
+	after a newline.<br /><br />This is a line
+	after a newline.<br /><br />This is a line
+	after a newline.<br /><br />This is a line
 	after a newline.</span>`;
 
 	editorContainer.innerHTML = spanString;
 	rootContainer.appendChild(editorContainer);
-	rootContainer.appendChild(NoteToolbar.cloneNode(true));
+	let NoteToolbarBase: Node = NoteToolbar.cloneNode(true);
+	let dummyBlock: HTMLElement = document.createElement("div");
+	dummyBlock.setAttribute("class", "note-toolbar-dummy");
+	NoteToolbarBase.appendChild(dummyBlock);
+	rootContainer.appendChild(NoteToolbarBase);
 
 	let otherButtons: Toolbar = new Toolbar();
-	let expandTags: HTMLElement = otherButtons.createButtonElement(
-		"expand-tags",
-		"ntb",
-		"expand-tags"
+	let resizerBottom: HTMLElement = otherButtons.createButtonElement(
+		"resizer-bottom",
+		"note",
+		"resizer-bottom"
 	);
-	let resizeNote: HTMLElement = otherButtons.createButtonElement(
-		"resize-note",
-		"ntb",
-		"resize"
+	let resizerRight: HTMLElement = otherButtons.createButtonElement(
+		"resizer-right",
+		"note",
+		"resizer-right"
 	);
 
-	rootContainer.appendChild(expandTags);
-	rootContainer.appendChild(resizeNote);
+	rootContainer.appendChild(resizerBottom);
+	rootContainer.appendChild(resizerRight);
 
 	return rootContainer;
 };
