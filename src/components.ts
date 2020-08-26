@@ -1,4 +1,5 @@
 import { buttonClick } from "./editor";
+import { NoteData } from "./index";
 
 class Toolbar {
 	buildElement(
@@ -205,7 +206,7 @@ const NoteToolbar: HTMLElement = NoteToolbarInstance.buildElement(
 	"ntb"
 );
 
-const Note = (autoHeight: boolean = false) => {
+const Note = (noteData: NoteData) => {
 	const itemContainer: HTMLElement = document.createElement("div");
 	itemContainer.setAttribute("class", "item");
 
@@ -215,23 +216,13 @@ const Note = (autoHeight: boolean = false) => {
 	const editorContainer: HTMLElement = document.createElement("div");
 	editorContainer.setAttribute(
 		"class",
-		`note-content ${autoHeight ? "auto-height" : ""}`
+		`note-content ${noteData.autoHeight ? "auto-height" : ""}`
 	);
 	editorContainer.setAttribute("role", "textbox");
 	editorContainer.setAttribute("contenteditable", "true");
+	editorContainer.setAttribute("spellcheck", "false");
 
-	let spanString: string = `<span
-	>Let’s add just a tiny bit of text to test out the
-	formatting on different sizes of notes. This is one
-	line.<br />This is a new line.<br /><br />This is a line
-	after a newline.<br /><br />This is a line
-	after a newline.<br /><br />This is a line
-	after a newline.<br /><br />This is a line
-	after a newline.<br /><br />This is a line
-	after a newline.<br /><br />This is a line
-	after a newline.<br /><br />This is a line
-	after a newline.<br /><br />This is a line
-	after a newline.</span>`;
+	let spanString: string = noteData.content;
 
 	editorContainer.innerHTML = spanString;
 	noteContainer.appendChild(editorContainer);

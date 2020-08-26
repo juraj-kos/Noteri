@@ -14,11 +14,46 @@ document.getElementById("editor-toolbar-root").replaceWith(EditorToolbar);
 // document.getElementById("sort-menu-root").replaceWith(SortMenu());
 
 const canvas = document.getElementById("canvas");
-canvas.appendChild(Note(true));
-canvas.appendChild(Note());
-canvas.appendChild(Note());
-canvas.appendChild(Note());
-canvas.appendChild(Note());
+
+interface NoteData {
+	position: number;
+	color: string;
+	autoHeight: boolean;
+	content: string;
+}
+
+export { NoteData };
+
+const noteData: NoteData[] = [
+	{
+		position: 0,
+		color: "c1",
+		autoHeight: true,
+		content: `Utorak, 25.08.2020.</br>- 09:25 - Buđenje</br>- 09:50 - Popisati problematične stvari za vježbati u autoškoli, kava</br>- 09:55 - Spremiti se</br>- 10:05 - Do autoškole</br>- 10:15 - Vožnja</br>- 11:45 - Idem doma</br>- 11:55 - Doma, predahnuti, reddit</br>- 12:11 - CS:GO</br>- 12:35 - Jesti</br>- 12:50 - Odnijeti smeće, oprati suđe</br>- 13:22 - Git changes, cleanup</br>- 13:36 - Noteri note changes</br>- 13:35 - Kreirati filter, sort menije u htmlu`,
+	},
+	{
+		position: 1,
+		color: "c1",
+		autoHeight: false,
+		content: `BAUHAUS</br>- Zemlja, tegle</br>- Kistovi, lak / lazura, brus papir</br>- Ljepilo za drvo</br>- Listovi za pile</br>- Žica</br>- Kliješta za žicu</br>- Pila s više nastavaka</br>- Libela</br>- Kutomjer, kutnik</br>- Nosači za police</br>- Lijepljena ploča</br>- profil za montažu</br></br>PEVEC</br>- Stege</br>- Svrdla</br>- Metalna ploča`,
+	},
+	{
+		position: 2,
+		color: "c1",
+		autoHeight: false,
+		content: `KNJIGE</br>Front-End Web Development - 257 / 469 - 212</br>Sprint #1 - Ch 13, 14 - 36 str</br>Sprint #2 - Part 3 - 72 str`,
+	},
+	{
+		position: 3,
+		color: "c1",
+		autoHeight: true,
+		content: `Alternate terminal - Bash, Git Bash, Powershell? - OR CMDER OR MINGW</br>Sass</br>CSS frameworks - Bootstrap, Tailwind CSS, Materialize, Bulma</br>Git & Github</br>NPM, Yarn</br>Axios</br>Webpack, Parcel</br></br>- Deployment</br>- Domain registration - Namecheap, Google Domains</br>- Managed hosting - InMotion, Hostgator, Bluehost</br>- Static Hosting - Netlify, Github Pages</br>- SSL</br>- SSH</br>- CLI, Git</br></br>JS Framework</br>React, pa Vue, pa možda Angular</br>Svelte - crash course</br>State Management - Redux, Context API - Vuex</br></br>GraphQL - Apollo Client</br>Server Side Rendering - NEXT (React), NUXT (Vue)`,
+	},
+];
+
+noteData.forEach((data) => {
+	canvas.appendChild(Note(data));
+});
 
 var grid = new Muuri(".grid", { dragEnabled: true });
 
