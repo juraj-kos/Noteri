@@ -261,4 +261,100 @@ const Note = (autoHeight: boolean = false) => {
 	return itemContainer;
 };
 
-export { MainToolbar, EditorToolbar, Note };
+const FilterMenu = () => {
+	const filterMenuContainer: HTMLElement = document.createElement("div");
+	filterMenuContainer.setAttribute("class", "sort-filter-menu");
+
+	const buttonList: [string, boolean, boolean][] = [
+		["By Date", false, false],
+		["Active", false, true],
+		["Archived", false, false],
+		["Trashed", false, false],
+		["Vacation", true, true],
+		["Lyrics", true, true],
+		["Groceries", true, false],
+	];
+
+	buttonList.forEach((buttonValue) => {
+		const button: HTMLElement = document.createElement("div");
+		button.setAttribute(
+			"class",
+			`sort-filter-menu-button ${
+				buttonValue[2] ? "sort-filter-menu-button-inactive" : ""
+			}`
+		);
+
+		if (buttonValue[0] === "By Date") {
+			const subContainer: HTMLElement = document.createElement("div");
+			subContainer.setAttribute("class", `sort-filter-by-date-container`);
+			button.appendChild(subContainer);
+		}
+
+		if (buttonValue[1]) {
+			const icon: HTMLElement = document.createElement("div");
+			icon.setAttribute("class", `sort-filter-menu-icon`);
+			const iconString: string = require(`./Media/Icons/icon-ntb-tag.svg`);
+			icon.innerHTML = iconString;
+			button.appendChild(icon);
+		}
+
+		const buttonText: HTMLElement = document.createElement("span");
+		buttonText.innerText = buttonValue[0];
+		button.appendChild(buttonText);
+
+		filterMenuContainer.appendChild(button);
+	});
+
+	const filterButton: HTMLElement = document.createElement("div");
+	filterButton.setAttribute(
+		"class",
+		"sort-filter-menu-button sort-filter-submit-button"
+	);
+	const buttonText: HTMLElement = document.createElement("span");
+	buttonText.innerText = "Filter";
+	filterButton.appendChild(buttonText);
+	filterMenuContainer.appendChild(filterButton);
+
+	return filterMenuContainer;
+};
+
+const SortMenu = () => {
+	const sortMenuContainer: HTMLElement = document.createElement("div");
+	sortMenuContainer.setAttribute("class", "sort-filter-menu");
+
+	const buttonList: [string, boolean][] = [
+		["Date Created (Newest First)", true],
+		["Date Created (Oldest First)", true],
+		["Content", false],
+	];
+
+	buttonList.forEach((buttonValue) => {
+		const button: HTMLElement = document.createElement("div");
+		button.setAttribute(
+			"class",
+			`sort-filter-menu-button ${
+				buttonValue[1] ? "sort-filter-menu-button-inactive" : ""
+			}`
+		);
+
+		const buttonText: HTMLElement = document.createElement("span");
+		buttonText.innerText = buttonValue[0];
+		button.appendChild(buttonText);
+
+		sortMenuContainer.appendChild(button);
+	});
+
+	const sortButton: HTMLElement = document.createElement("div");
+	sortButton.setAttribute(
+		"class",
+		"sort-filter-menu-button sort-filter-submit-button"
+	);
+	const buttonText: HTMLElement = document.createElement("span");
+	buttonText.innerText = "Sort";
+	sortButton.appendChild(buttonText);
+	sortMenuContainer.appendChild(sortButton);
+
+	return sortMenuContainer;
+};
+
+export { MainToolbar, EditorToolbar, Note, FilterMenu, SortMenu };

@@ -1,10 +1,17 @@
-import { MainToolbar, EditorToolbar, Note } from "./components";
+import {
+	MainToolbar,
+	EditorToolbar,
+	Note,
+	FilterMenu,
+	SortMenu,
+} from "./components";
 import "./style.css";
 import Muuri from "muuri";
 
 document.getElementById("main-toolbar-root").replaceWith(MainToolbar);
 document.getElementById("editor-toolbar-root").replaceWith(EditorToolbar);
-//document.getElementById("note-toolbar-root").replaceWith(NoteToolbar);
+// document.getElementById("filter-menu-root").replaceWith(FilterMenu());
+// document.getElementById("sort-menu-root").replaceWith(SortMenu());
 
 const canvas = document.getElementById("canvas");
 canvas.appendChild(Note(true));

@@ -312,3 +312,63 @@ body {
 .resizer-right:hover {
 	opacity: 1;
 }
+
+.sort-filter-menu {
+	position: absolute;
+	width: 504px;
+	margin-top: 10px;
+	padding-top: 22px;
+	left: 50%;
+	transform: translate(-50%, 0);
+	border-radius: 10px;
+	background-color: #fffdf9;
+	border: 1px solid #9a9a9a;
+	z-index: 10;
+}
+
+.sort-filter-menu-button {
+	position: relative;
+	height: 53px;
+	margin: 0 18px 10px 18px;
+	border-radius: 5px;
+	background-color: #f5ddaf;
+
+	font-family: "Roboto", sans-serif;
+	font-size: 36px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.sort-filter-menu-button-inactive {
+	background-color: #fff7e8;
+	color: #6c635e;
+}
+
+.sort-filter-menu-icon {
+	width: 30px;
+	height: 30px;
+	margin-bottom: 8px;
+	padding-left: 12px;
+}
+
+.sort-filter-menu-button span {
+	padding-left: 12px;
+}
+
+.sort-filter-submit-button {
+	background-color: #e0afa0;
+	margin: 50px 18px 10px auto;
+	width: 147px;
+	justify-content: center;
+}
+
+.sort-filter-submit-button span {
+	padding-left: 0px;
+}
+
+.sort-filter-by-date-container {
+	/* background-color: #e1d9ca;
+	width: 408px;
+	height: 156px; */
+}
