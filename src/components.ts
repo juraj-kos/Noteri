@@ -54,6 +54,11 @@ class Toolbar {
 
 		this.appendSVG(buttonDiv, prefix, buttonName);
 
+		console.log("Adding event listener to: " + buttonName);
+		buttonDiv.addEventListener("click", (e: Event) => {
+			buttonClick(buttonName);
+		});
+
 		return buttonDiv;
 	}
 
@@ -206,6 +211,24 @@ const NoteToolbar: HTMLElement = NoteToolbarInstance.buildElement(
 	"ntb"
 );
 
+import { noteButtonClick } from "./index";
+
+function assignNoteEventListeners(
+	toolbarNode: Node,
+	noteElement: HTMLElement,
+	noteID: string
+) {
+	toolbarNode.childNodes.forEach((child) => {
+		const buttonName: string = (<HTMLElement>child).id
+			.split("-")
+			.slice(-1)[0];
+		console.log("Adding event listener to: " + buttonName);
+		child.addEventListener("click", (e: Event) => {
+			noteButtonClick(noteElement, noteID, buttonName);
+		});
+	});
+}
+
 const Note = (noteData: NoteData) => {
 	const itemContainer: HTMLElement = document.createElement("div");
 	itemContainer.setAttribute("class", "item");
@@ -221,12 +244,14 @@ const Note = (noteData: NoteData) => {
 	editorContainer.setAttribute("role", "textbox");
 	editorContainer.setAttribute("contenteditable", "true");
 	editorContainer.setAttribute("spellcheck", "false");
+	editorContainer.setAttribute("id", "editor-container");
 
 	let spanString: string = noteData.content;
 
 	editorContainer.innerHTML = spanString;
 	noteContainer.appendChild(editorContainer);
 	let NoteToolbarBase: Node = NoteToolbar.cloneNode(true);
+	assignNoteEventListeners(NoteToolbarBase, itemContainer, noteData.id);
 	let dummyBlock: HTMLElement = document.createElement("div");
 	dummyBlock.setAttribute("class", "note-toolbar-dummy");
 	NoteToolbarBase.appendChild(dummyBlock);

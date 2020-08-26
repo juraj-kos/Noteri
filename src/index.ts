@@ -16,6 +16,7 @@ document.getElementById("editor-toolbar-root").replaceWith(EditorToolbar);
 const canvas = document.getElementById("canvas");
 
 interface NoteData {
+	id: string;
 	position: number;
 	color: string;
 	autoHeight: boolean;
@@ -26,24 +27,28 @@ export { NoteData };
 
 const noteData: NoteData[] = [
 	{
+		id: "0",
 		position: 0,
 		color: "c1",
 		autoHeight: true,
 		content: `Utorak, 25.08.2020.</br>- 09:25 - Buđenje</br>- 09:50 - Popisati problematične stvari za vježbati u autoškoli, kava</br>- 09:55 - Spremiti se</br>- 10:05 - Do autoškole</br>- 10:15 - Vožnja</br>- 11:45 - Idem doma</br>- 11:55 - Doma, predahnuti, reddit</br>- 12:11 - CS:GO</br>- 12:35 - Jesti</br>- 12:50 - Odnijeti smeće, oprati suđe</br>- 13:22 - Git changes, cleanup</br>- 13:36 - Noteri note changes</br>- 13:35 - Kreirati filter, sort menije u htmlu`,
 	},
 	{
+		id: "1",
 		position: 1,
 		color: "c1",
 		autoHeight: false,
 		content: `BAUHAUS</br>- Zemlja, tegle</br>- Kistovi, lak / lazura, brus papir</br>- Ljepilo za drvo</br>- Listovi za pile</br>- Žica</br>- Kliješta za žicu</br>- Pila s više nastavaka</br>- Libela</br>- Kutomjer, kutnik</br>- Nosači za police</br>- Lijepljena ploča</br>- profil za montažu</br></br>PEVEC</br>- Stege</br>- Svrdla</br>- Metalna ploča`,
 	},
 	{
+		id: "2",
 		position: 2,
 		color: "c1",
 		autoHeight: false,
 		content: `KNJIGE</br>Front-End Web Development - 257 / 469 - 212</br>Sprint #1 - Ch 13, 14 - 36 str</br>Sprint #2 - Part 3 - 72 str`,
 	},
 	{
+		id: "3",
 		position: 3,
 		color: "c1",
 		autoHeight: true,
@@ -56,6 +61,38 @@ noteData.forEach((data) => {
 });
 
 var grid = new Muuri(".grid", { dragEnabled: true });
+
+function noteButtonClick(
+	rootElement: HTMLElement,
+	noteID: string,
+	buttonName: string
+) {
+	console.log(noteID);
+	console.log(buttonName);
+
+	if (buttonName === "scale") {
+		noteData.forEach((data) => {
+			if (data.id === noteID) {
+				data.autoHeight = !data.autoHeight;
+			}
+			updateNoteDOM(rootElement, data);
+		});
+	}
+}
+
+function updateNoteDOM(rootElement: HTMLElement, data: NoteData) {
+	const editorContainer = rootElement.querySelector("#editor-container");
+	const hasAutoHeightClass: boolean = editorContainer.classList.contains(
+		"auto-height"
+	);
+	if (data.autoHeight && !hasAutoHeightClass) {
+		editorContainer.classList.add("auto-height");
+	} else if (!data.autoHeight && hasAutoHeightClass) {
+		editorContainer.classList.remove("auto-height");
+	}
+}
+
+export { noteButtonClick };
 
 // import { markupToNodeList, nodeListToMarkup, nodeListToDOM } from "./parser";
 
