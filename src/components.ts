@@ -257,25 +257,81 @@ const Note = (noteData: NoteData) => {
 	NoteToolbarBase.appendChild(dummyBlock);
 	noteContainer.appendChild(NoteToolbarBase);
 
-	let otherButtons: Toolbar = new Toolbar();
-	let resizerBottom: HTMLElement = otherButtons.createButtonElement(
-		"resizer-bottom",
-		"note",
-		"resizer-bottom"
-	);
-	let resizerRight: HTMLElement = otherButtons.createButtonElement(
-		"resizer-right",
-		"note",
-		"resizer-right"
-	);
+	const tagContainer: HTMLElement = document.createElement("div");
+	tagContainer.setAttribute("class", "tag-container");
+	tagContainer.setAttribute("id", "tag-container");
+	noteData.tags.forEach((tag) => {
+		const tagBox: HTMLElement = document.createElement("div");
+		tagBox.setAttribute("class", "tag-box");
+		tagBox.innerText = tag;
+		tagContainer.appendChild(tagBox);
+	});
+	noteContainer.appendChild(tagContainer);
 
-	noteContainer.appendChild(resizerBottom);
-	noteContainer.appendChild(resizerRight);
+	// let otherButtons: Toolbar = new Toolbar();
+	// let resizerBottom: HTMLElement = otherButtons.createButtonElement(
+	// 	"resizer-bottom",
+	// 	"note",
+	// 	"resizer-bottom"
+	// );
+	// let resizerRight: HTMLElement = otherButtons.createButtonElement(
+	// 	"resizer-right",
+	// 	"note",
+	// 	"resizer-right"
+	// );
+
+	// noteContainer.appendChild(resizerBottom);
+	// noteContainer.appendChild(resizerRight);
 
 	itemContainer.appendChild(noteContainer);
 
 	return itemContainer;
 };
+
+function ColorMenu() {
+	const primaryValues: string[] = [
+		"#FFFFFF",
+		"#F50D07",
+		"#F79907",
+		"#F9FF07",
+		"#2AFF00",
+		"#49FEFE",
+		"#3700FE",
+		"#9800FF",
+		"#FB00FF",
+	];
+
+	const secondaryValues: string[][] = [
+		["#000000", "#444444", "#999999", "#cccccc", "#eeeeee", "#ffffff"],
+		["#ffffff", "#eeeeee", "#cccccc", "#999999", "#444444", "#000000"],
+		["#f4cccc", "#ea9999", "#e06666", "#cc0000", "#990000", "#660000"],
+		["#fce5cd", "#f9cb9c", "#f6b26b", "#e69138", "#b45f06", "#783f04"],
+		["#fff2cc", "#ffe599", "#ffd966", "#f1c232", "#bf9000", "#7f6000"],
+		["#d9ead3", "#b6d7a8", "#93c47d", "#6aa84f", "#38761d", "#274e13"],
+		["#d0e0e3", "#a2c4c9", "#76a5af", "#45818e", "#134f5c", "#0c343d"],
+		["#cfe2f3", "#9fc5e8", "#6fa8dc", "#3d85c6", "#0b5394", "#073763"],
+		["#d9d2e9", "#b4a7d6", "#8e7cc3", "#674ea7", "#351c75", "#20124d"],
+		["#ead1dc", "#d5a6bd", "#c27ba0", "#a64d79", "#a26784", "#4c1130"],
+	];
+
+	const colorContainer: HTMLElement = document.createElement("div");
+	colorContainer.setAttribute("class", "color-container");
+	colorContainer.setAttribute("id", "color-container");
+
+	primaryValues.forEach((colorValue) => {
+		const colorButton: HTMLElement = document.createElement("div");
+		colorButton.setAttribute("class", "color-button");
+		const borderColor: string =
+			colorValue === "#FFFFFF" ? "#C4C4C4" : colorValue;
+		colorButton.setAttribute(
+			"style",
+			`background-color: ${colorValue}; border: ${borderColor} solid 1px`
+		);
+		colorContainer.appendChild(colorButton);
+	});
+
+	return colorContainer;
+}
 
 const FilterMenu = () => {
 	const filterMenuContainer: HTMLElement = document.createElement("div");
@@ -373,4 +429,4 @@ const SortMenu = () => {
 	return sortMenuContainer;
 };
 
-export { MainToolbar, EditorToolbar, Note, FilterMenu, SortMenu };
+export { MainToolbar, EditorToolbar, Note, FilterMenu, SortMenu, ColorMenu };

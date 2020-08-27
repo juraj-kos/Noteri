@@ -4,6 +4,7 @@ import {
 	Note,
 	FilterMenu,
 	SortMenu,
+	ColorMenu,
 } from "./components";
 import "./style.css";
 import Muuri from "muuri";
@@ -12,6 +13,7 @@ document.getElementById("main-toolbar-root").replaceWith(MainToolbar);
 document.getElementById("editor-toolbar-root").replaceWith(EditorToolbar);
 // document.getElementById("filter-menu-root").replaceWith(FilterMenu());
 // document.getElementById("sort-menu-root").replaceWith(SortMenu());
+document.getElementById("color-menu-root").replaceWith(ColorMenu());
 
 const canvas = document.getElementById("canvas");
 
@@ -20,6 +22,8 @@ interface NoteData {
 	position: number;
 	color: string;
 	autoHeight: boolean;
+	tags: string[];
+	showTags: boolean;
 	content: string;
 }
 
@@ -31,6 +35,8 @@ const noteData: NoteData[] = [
 		position: 0,
 		color: "c1",
 		autoHeight: true,
+		tags: ["timeline", "time tracking", "personal management"],
+		showTags: false,
 		content: `Utorak, 25.08.2020.</br>- 09:25 - Buđenje</br>- 09:50 - Popisati problematične stvari za vježbati u autoškoli, kava</br>- 09:55 - Spremiti se</br>- 10:05 - Do autoškole</br>- 10:15 - Vožnja</br>- 11:45 - Idem doma</br>- 11:55 - Doma, predahnuti, reddit</br>- 12:11 - CS:GO</br>- 12:35 - Jesti</br>- 12:50 - Odnijeti smeće, oprati suđe</br>- 13:22 - Git changes, cleanup</br>- 13:36 - Noteri note changes</br>- 13:35 - Kreirati filter, sort menije u htmlu`,
 	},
 	{
@@ -38,6 +44,8 @@ const noteData: NoteData[] = [
 		position: 1,
 		color: "c1",
 		autoHeight: false,
+		tags: ["shopping list", "home supplies"],
+		showTags: false,
 		content: `BAUHAUS</br>- Zemlja, tegle</br>- Kistovi, lak / lazura, brus papir</br>- Ljepilo za drvo</br>- Listovi za pile</br>- Žica</br>- Kliješta za žicu</br>- Pila s više nastavaka</br>- Libela</br>- Kutomjer, kutnik</br>- Nosači za police</br>- Lijepljena ploča</br>- profil za montažu</br></br>PEVEC</br>- Stege</br>- Svrdla</br>- Metalna ploča`,
 	},
 	{
@@ -45,6 +53,8 @@ const noteData: NoteData[] = [
 		position: 2,
 		color: "c1",
 		autoHeight: false,
+		tags: ["books", "personal management"],
+		showTags: true,
 		content: `KNJIGE</br>Front-End Web Development - 257 / 469 - 212</br>Sprint #1 - Ch 13, 14 - 36 str</br>Sprint #2 - Part 3 - 72 str`,
 	},
 	{
@@ -52,6 +62,8 @@ const noteData: NoteData[] = [
 		position: 3,
 		color: "c1",
 		autoHeight: true,
+		tags: ["web development", "resources", "tools"],
+		showTags: false,
 		content: `Alternate terminal - Bash, Git Bash, Powershell? - OR CMDER OR MINGW</br>Sass</br>CSS frameworks - Bootstrap, Tailwind CSS, Materialize, Bulma</br>Git & Github</br>NPM, Yarn</br>Axios</br>Webpack, Parcel</br></br>- Deployment</br>- Domain registration - Namecheap, Google Domains</br>- Managed hosting - InMotion, Hostgator, Bluehost</br>- Static Hosting - Netlify, Github Pages</br>- SSL</br>- SSH</br>- CLI, Git</br></br>JS Framework</br>React, pa Vue, pa možda Angular</br>Svelte - crash course</br>State Management - Redux, Context API - Vuex</br></br>GraphQL - Apollo Client</br>Server Side Rendering - NEXT (React), NUXT (Vue)`,
 	},
 ];
@@ -74,14 +86,23 @@ function noteButtonClick(
 		noteData.forEach((data) => {
 			if (data.id === noteID) {
 				data.autoHeight = !data.autoHeight;
+				updateNoteDOM(rootElement, data);
 			}
-			updateNoteDOM(rootElement, data);
+		});
+	} else if (buttonName === "tag") {
+		noteData.forEach((data) => {
+			if (data.id === noteID) {
+				data.showTags = !data.showTags;
+				updateNoteDOM(rootElement, data);
+			}
 		});
 	}
 }
 
 function updateNoteDOM(rootElement: HTMLElement, data: NoteData) {
-	const editorContainer = rootElement.querySelector("#editor-container");
+	const editorContainer: HTMLElement = rootElement.querySelector(
+		"#editor-container"
+	);
 	const hasAutoHeightClass: boolean = editorContainer.classList.contains(
 		"auto-height"
 	);
@@ -89,6 +110,16 @@ function updateNoteDOM(rootElement: HTMLElement, data: NoteData) {
 		editorContainer.classList.add("auto-height");
 	} else if (!data.autoHeight && hasAutoHeightClass) {
 		editorContainer.classList.remove("auto-height");
+	}
+
+	const tagContainer = rootElement.querySelector("#tag-container");
+	const hasTagsShowClass: boolean = tagContainer.classList.contains(
+		"tag-container-show"
+	);
+	if (data.showTags && !hasTagsShowClass) {
+		tagContainer.classList.add("tag-container-show");
+	} else if (!data.showTags && hasTagsShowClass) {
+		tagContainer.classList.remove("tag-container-show");
 	}
 }
 
